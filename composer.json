@@ -1,0 +1,10 @@
+{
+    "name": "chris/db-model-generator",
+    "authors": [
+        {
+            "name": "Christos Stavrakis",
+            "email": "chstavrakis1@gmail.com"
+        }
+    ],
+    "require": {}
+}
