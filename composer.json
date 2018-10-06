@@ -1,10 +1,27 @@
 {
-    "name": "chris/db-model-generator",
+    "name": "chstavrakis/db-model-generator",
     "authors": [
         {
             "name": "Christos Stavrakis",
             "email": "chstavrakis1@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "zendframework/zend-db": "^2.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "ModelGenerator\\Db\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "files": [
+            "test/autoload.php"
+        ],
+        "psr-4": {
+            "ModelGeneratorTest\\Db\\": "test/unit",
+            "ModelGeneratorIntegrationTest\\Db\\": "test/integration"
+        }
+    }
 }
