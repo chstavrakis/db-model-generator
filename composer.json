@@ -14,14 +14,5 @@
         "psr-4": {
             "ModelGenerator\\Db\\": "src/"
         }
-    },
-    "autoload-dev": {
-        "files": [
-            "test/autoload.php"
-        ],
-        "psr-4": {
-            "ModelGeneratorTest\\Db\\": "test/unit",
-            "ModelGeneratorIntegrationTest\\Db\\": "test/integration"
-        }
     }
 }
