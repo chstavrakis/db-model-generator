@@ -25,3 +25,5 @@ data/DoctrineORMModule/cache/
 demos/
 extras/documentation
 
+/config/database.local.php
+.idea/
