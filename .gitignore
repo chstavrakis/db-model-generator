@@ -29,3 +29,4 @@ extras/documentation
 .idea/
 /composer.lock
 /src/Model/*.php
+/bin/create-models-local.php

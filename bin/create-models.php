@@ -2,7 +2,7 @@
 
 echo 'Create Models Process - Start'. PHP_EOL;
 
-$dirName =  dirname(__DIR__);
+$dirName = dirname(dirname(dirname(dirname(__DIR__))));
 
 require_once $dirName . '/vendor/autoload.php';
 
