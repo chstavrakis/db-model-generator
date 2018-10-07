@@ -48,7 +48,8 @@ class AbstractClass
     protected function clearModelDirectory()
     {
         //TODO
-        $files = glob(self::MODEL_DIRECTORY.'/*');
+        $modelDir = Config::getModelDir();
+        $files = glob($modelDir.'/*');
         foreach($files as $file){ // iterate files
             if(is_file($file))
                 unlink($file); // delete file
