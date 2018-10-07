@@ -2,6 +2,8 @@
 namespace ModelGenerator\Common\Schema\Model;
 
 
+use ModelGenerator\Common\Helper\Config;
+
 class AbstractClass
 {
     const MODEL_DIRECTORY = 'src/Model';
@@ -31,7 +33,8 @@ class AbstractClass
 
     protected function writeFile()
     {
-        $ourFileName = self::MODEL_DIRECTORY .sprintf("/%s.php", $this->camelize($this->tableName));
+        $modelDir = Config::getModelDir();
+        $ourFileName = $modelDir .sprintf("/%s.php", $this->camelize($this->tableName));
         $ourFileHandle = fopen($ourFileName, 'w') or die("can't open file");
         fwrite($ourFileHandle, $this->getClassTemplate());
         fclose($ourFileHandle);

@@ -2,18 +2,21 @@
 
 echo 'Create Models Process - Start'. PHP_EOL;
 
-$dirName = dirname(dirname(dirname(dirname(__DIR__))));
-
 $moduleDir = dirname(__DIR__);
 $vendorDir = dirname(dirname($moduleDir));
 
 require_once $vendorDir . '/autoload.php';
 
-if(!file_exists($moduleDir . '/config/database.local.php')){
+ModelGenerator\Common\Helper\Config::setModuleDir($moduleDir);
+ModelGenerator\Common\Helper\Config::setVendorDir($vendorDir);
+
+$configDir = ModelGenerator\Common\Helper\Config::getConfigDir();
+
+if(!file_exists($configDir . '/database.local.php')){
     throw new Exception('You must create config/database.local.php');
 }
 
-$config = include $moduleDir . '/config/database.local.php' ;
+$config = include $configDir . '/database.local.php' ;
 
 $infoSchema = new \ModelGenerator\Common\Schema\Model\Information( $config['db'] );
 $infoSchema->load(['table_schema' => $config['db']['database']]);
