@@ -4,13 +4,16 @@ echo 'Create Models Process - Start'. PHP_EOL;
 
 $dirName = dirname(dirname(dirname(dirname(__DIR__))));
 
-require_once $dirName . '/vendor/autoload.php';
+$moduleDir = dirname(__DIR__);
+$vendorDir = dirname(dirname($moduleDir));
 
-if(!file_exists($dirName . '/config/database.local.php')){
+require_once $vendorDir . '/autoload.php';
+
+if(!file_exists($moduleDir . '/config/database.local.php')){
     throw new Exception('You must create config/database.local.php');
 }
 
-$config = include $dirName . '/config/database.local.php' ;
+$config = include $moduleDir . '/config/database.local.php' ;
 
 $infoSchema = new \ModelGenerator\Common\Schema\Model\Information( $config['db'] );
 $infoSchema->load(['table_schema' => $config['db']['database']]);
