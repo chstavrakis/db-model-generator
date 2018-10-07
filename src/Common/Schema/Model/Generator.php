@@ -23,10 +23,17 @@ class Generator
     public function create()
     {
         try {
+
+            if(empty($this->getSchemaResult())){
+                throw new \Exception('Schema is Empty.');
+            }
+
             foreach ($this->getSchemaResult() as $tableName => $tableColumns) {
+                echo "Create Models Process - Table: $tableName". PHP_EOL;
                 $this->abstractClass->initClass($tableName, $tableColumns);
                 $this->abstractClass->createClassFile();
             }
+
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }

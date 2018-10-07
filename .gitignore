@@ -28,3 +28,4 @@ extras/documentation
 /config/database.local.php
 .idea/
 /composer.lock
+/src/Model/*.php
