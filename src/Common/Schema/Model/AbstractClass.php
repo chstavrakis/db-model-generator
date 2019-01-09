@@ -94,7 +94,7 @@ class %s extends TableGateway
     public function __construct()
     {
         $adapter = Generator::app()->getAdapter();
-        parent::construct(%s, $adapter);
+        parent::__construct(\'%s\', $adapter);
     }
     
 }', $this->tableNameCamelize, $this->tableName);
