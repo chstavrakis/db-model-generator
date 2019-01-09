@@ -20,7 +20,6 @@ class AbstractClass
     public function __construct()
     {
         $this->clearModelDirectory();
-        $this->clearResourceModelDirectory();
     }
 
     public function initClass($tableName, $tableColumns)
@@ -35,7 +34,6 @@ class AbstractClass
     public function createClassFile()
     {
         $this->writeModelFile();
-        $this->writeResourceModelFile();
     }
 
     protected function writeModelFile()
@@ -44,15 +42,6 @@ class AbstractClass
         $ourFileName = $modelDir .sprintf("/%s.php", $this->tableNameCamelize);
         $ourFileHandle = fopen($ourFileName, 'w') or die("can't open file");
         fwrite($ourFileHandle, $this->getClassTemplate());
-        fclose($ourFileHandle);
-    }
-
-    protected function writeResourceModelFile()
-    {
-        $modelDir = Config::getModelDir();
-        $ourFileName = $modelDir .sprintf("/ResourceModel/%s.php", $this->tableNameCamelize);
-        $ourFileHandle = fopen($ourFileName, 'w') or die("can't open file");
-        fwrite($ourFileHandle, $this->getResourceClassTemplate());
         fclose($ourFileHandle);
     }
 
@@ -66,17 +55,6 @@ class AbstractClass
         //TODO
         $modelDir = Config::getModelDir();
         $files = glob($modelDir.'/*');
-        foreach($files as $file){ // iterate files
-            if(is_file($file))
-                unlink($file); // delete file
-        }
-    }
-
-    protected function clearResourceModelDirectory()
-    {
-        //TODO
-        $modelDir = Config::getModelDir();
-        $files = glob($modelDir.'/ResourceModel/*');
         foreach($files as $file){ // iterate files
             if(is_file($file))
                 unlink($file); // delete file
@@ -102,76 +80,23 @@ class AbstractClass
         return $this->tableColumns;
     }
 
-    protected function getResourceClassTemplate()
-    {
-        return sprintf('<?php
-namespace ModelGenerator\Model\ResourceModel;
-
-use Zend\Db\Sql\Sql;
-use Zend\Db\TableGateway\AbstractTableGateway;
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\ResultSet\ResultSet;
-
-class %s extends AbstractTableGateway
-{
-
-    public $table = \'%s\';
-
-    public function __construct(Adapter $adapter)
-    {
-        $this->adapter = $adapter;
-        $this->resultSetPrototype = new ResultSet(ResultSet::TYPE_ARRAY);
-        $this->initialize();
-    }
-
-    public function load($where = array(), $columns = array(), $order = array())
-    {
-        try {
-            $sql = new Sql($this->getAdapter());
-            $select = $sql->select()->from(array(
-                \'main_table\' => $this->table
-            ));
-
-            if (count($where) > 0) {
-                $select->where($where);
-            }
-
-            if (count($columns) > 0) {
-                $select->columns($columns);
-            }
-
-            if (count($order) > 0) {
-                $select->order($order);
-            }
-
-            $statement = $sql->prepareStatementForSqlObject($select);
-            $result = $this->resultSetPrototype->initialize($statement->execute())
-                ->toArray();
-            return $result;
-        } catch (\Exception $e) {
-            throw new \Exception($e->getPrevious()->getMessage());
-        }
-    }
-}', $this->tableNameCamelize, $this->tableName );
-    }
-
     protected function getClassTemplate()
     {
 
         return sprintf('<?php
 namespace ModelGenerator\Model;
 
+use ModelGenerator\Core\Generator;
+use ModelGenerator\Model\ResourceModel\TableGateway;
 
-class %s extends AbstractModel
+class %s extends TableGateway
 {
-
-
     public function __construct()
     {
-       $this->setResourceModel(%s);
+        $adapter = Generator::app()->getAdapter();
+        parent::construct(%s, $adapter);
     }
-
     
-}', $this->tableNameCamelize, $this->tableNameCamelize );
+}', $this->tableNameCamelize, $this->tableName);
     }
 }
