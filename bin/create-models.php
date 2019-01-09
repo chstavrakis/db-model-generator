@@ -2,6 +2,11 @@
 
 echo 'Create Models Process - Start'. PHP_EOL;
 
+$moduleDir = dirname(__DIR__);
+$vendorDir = dirname(dirname($moduleDir));
+
+require_once $vendorDir . '/autoload.php';
+
 
 $generator = new \ModelGenerator\Core\Generator();
 $config = $generator->getConfig()['db'];
