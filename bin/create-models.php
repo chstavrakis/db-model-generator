@@ -16,10 +16,11 @@ if(!file_exists($configDir . '/database.local.php')){
     throw new Exception('You must create config/database.local.php');
 }
 
-$config = include $configDir . '/database.local.php' ;
+include $configDir . '/database.local.php' ;
+$config = getDbParams();
 
-$infoSchema = new \ModelGenerator\Common\Schema\Model\Information( $config['db'] );
-$infoSchema->load(['table_schema' => $config['db']['database']]);
+$infoSchema = new \ModelGenerator\Common\Schema\Model\Information( $config );
+$infoSchema->load(['table_schema' => $config['database']]);
 
 $generator = new \ModelGenerator\Common\Schema\Model\Generator($infoSchema);
 $generator->init()->create();
