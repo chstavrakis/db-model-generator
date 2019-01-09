@@ -7,6 +7,9 @@ $vendorDir = dirname(dirname($moduleDir));
 
 require_once $vendorDir . '/autoload.php';
 
+ModelGenerator\Common\Helper\Config::setModuleDir($moduleDir);
+ModelGenerator\Common\Helper\Config::setVendorDir($vendorDir);
+
 
 $generator = new \ModelGenerator\Core\Generator();
 $config = $generator->getConfig()['db'];
