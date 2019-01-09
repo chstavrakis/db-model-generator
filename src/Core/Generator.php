@@ -80,7 +80,7 @@ class Generator
      */
     public function addConfig($config)
     {
-        $this->config = array_replace_recursive($config, $this->getConfig());
+        $this->setConfig(array_merge_recursive($config, $this->getConfig()));
         return $this;
     }
 
