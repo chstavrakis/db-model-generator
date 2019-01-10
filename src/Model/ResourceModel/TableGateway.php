@@ -6,30 +6,41 @@ use Zend\Db\Sql\Sql;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
 
+/**
+ * Class TableGateway
+ *
+ * @package ModelGenerator\Model\ResourceModel
+ */
 class TableGateway extends AbstractTableGateway
 {
 
+    /**
+     * @var
+     */
     protected $primaryKey;
 
     /**
-     * @return mixed
+     * TableGateway constructor.
+     *
+     * @param Adapter $adapter
      */
-    public function getPrimaryKey()
-    {
-        return $this->primaryKey;
-    }
-
     public function __construct(Adapter $adapter)
     {
         $this->adapter = $adapter;
         $this->_construct();
     }
 
+    /**
+     * Protected constructor
+     */
     protected function _construct()
     {
-
     }
 
+    /**
+     * @param $tableName
+     * @param $primaryKey
+     */
     public function _init($tableName, $primaryKey)
     {
         $this->table = $tableName;
@@ -37,6 +48,14 @@ class TableGateway extends AbstractTableGateway
         $this->initialize();
     }
 
+    /**
+     * @param array $where
+     * @param array $columns
+     * @param array $order
+     *
+     * @return mixed
+     * @throws \Exception
+     */
     public function load($where = array(), $columns = array(), $order = array())
     {
         try {
@@ -66,9 +85,22 @@ class TableGateway extends AbstractTableGateway
         }
     }
 
+    /**
+     * @param $id
+     *
+     * @return mixed
+     * @throws \Exception
+     */
     public function loadById($id)
     {
-        //load by primaryKey
         return $this->load([$this->getPrimaryKey() => $id]);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getPrimaryKey()
+    {
+        return $this->primaryKey;
     }
 }

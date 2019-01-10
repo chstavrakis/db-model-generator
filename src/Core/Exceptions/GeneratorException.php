@@ -3,11 +3,21 @@
 namespace ModelGenerator\Core\Exceptions;
 
 
-use ModelGenerator\Core\Generator;
-
+/**
+ * Class GeneratorException
+ *
+ * @package ModelGenerator\Core\Exceptions
+ */
 class GeneratorException extends \Exception
 {
 
+    /**
+     * GeneratorException constructor.
+     *
+     * @param      $message
+     * @param bool $logError
+     * @param bool $logBackTrace
+     */
     public function __construct($message, $logError = true, $logBackTrace = true)
     {
         parent::__construct($message);

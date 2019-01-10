@@ -1,4 +1,5 @@
 <?php
+
 namespace ModelGenerator\Common\Schema\Model;
 
 use Zend\Db\Sql\Sql;
@@ -6,13 +7,29 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 
+/**
+ * Class Information
+ *
+ * @package ModelGenerator\Common\Schema\Model
+ */
 class Information extends AbstractTableGateway
 {
 
+    /**
+     * @var string
+     */
     public $table = 'columns';
 
+    /**
+     * @var
+     */
     protected $infoResults;
 
+    /**
+     * Information constructor.
+     *
+     * @param $dbParams
+     */
     public function __construct($dbParams)
     {
         $dbParams['database'] = 'information_schema';
@@ -20,7 +37,13 @@ class Information extends AbstractTableGateway
         $this->resultSetPrototype = new ResultSet(ResultSet::TYPE_ARRAY);
         $this->initialize();
     }
-    
+
+    /**
+     * @param array $where
+     *
+     * @return $this
+     * @throws \Exception
+     */
     public function load($where = array())
     {
         $columns = ['table_name', 'column_name', 'data_type', 'column_key'];
@@ -31,11 +54,11 @@ class Information extends AbstractTableGateway
             $select = $sql->select()->from(array(
                 'info' => $this->table
             ));
-            
+
             if (count($where) > 0) {
                 $select->where($where);
             }
-            
+
             if (count($columns) > 0) {
                 $select->columns($columns);
             }
@@ -45,8 +68,10 @@ class Information extends AbstractTableGateway
             }
 
             $statement = $sql->prepareStatementForSqlObject($select);
-            $this->infoResults = $this->resultSetPrototype->initialize($statement->execute())
+            $infoResults = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
+
+            $this->setInfoResults($infoResults);
 
             return $this;
         } catch (\Exception $e) {
@@ -60,5 +85,13 @@ class Information extends AbstractTableGateway
     public function getInfoResults()
     {
         return $this->infoResults;
+    }
+
+    /**
+     * @param mixed $infoResults
+     */
+    public function setInfoResults($infoResults)
+    {
+        $this->infoResults = $infoResults;
     }
 }

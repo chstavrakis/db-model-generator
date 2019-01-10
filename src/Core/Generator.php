@@ -2,9 +2,13 @@
 
 namespace ModelGenerator\Core;
 
-use ModelGenerator\Core\Exceptions\GeneratorException;
 use Zend\Db\Adapter\Adapter;
 
+/**
+ * Class Generator
+ *
+ * @package ModelGenerator\Core
+ */
 class Generator
 {
 
@@ -13,8 +17,14 @@ class Generator
      */
     private static $__instance;
 
+    /**
+     * @var
+     */
     private $adapter;
 
+    /**
+     * @var array
+     */
     private $config = array();
 
     /**
@@ -91,7 +101,6 @@ class Generator
     {
         return $this->adapter;
     }
-
 
     /**
      * @param Adapter $adapter
