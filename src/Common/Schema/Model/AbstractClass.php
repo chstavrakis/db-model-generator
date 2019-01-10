@@ -61,6 +61,14 @@ class AbstractClass
         }
     }
 
+    /**
+     * @return mixed
+     */
+    protected function getTableName()
+    {
+        return $this->tableName;
+    }
+
     protected function getPrimaryKey()
     {
         $primaryKey = '';
@@ -84,19 +92,28 @@ class AbstractClass
     {
 
         return sprintf('<?php
-namespace ModelGenerator\Model;
-
-use ModelGenerator\Core\Generator;
-use ModelGenerator\Model\ResourceModel\TableGateway;
-
-class %s extends TableGateway
-{
-    public function __construct()
-    {
-        $adapter = Generator::app()->getAdapter();
-        parent::__construct(\'%s\', $adapter);
-    }
-    
-}', $this->tableNameCamelize, $this->tableName);
+            namespace ModelGenerator\Model;
+            
+            use ModelGenerator\Core\Generator;
+            use ModelGenerator\Model\ResourceModel\TableGateway;
+            
+            class %s extends TableGateway
+            {
+                public function __construct()
+                {
+                    $adapter = Generator::app()->getAdapter();
+                    parent::__construct($adapter);
+                }
+                
+                protected function _construct()
+                {
+                    parent::_init(\'%s\',\'%s\');
+                }
+                
+            }',
+            $this->tableNameCamelize,
+            $this->getTableName(),
+            $this->getPrimaryKey()
+        );
     }
 }

@@ -11,9 +11,23 @@ class TableGateway extends AbstractTableGateway
 
     protected $primaryKey;
 
+    /**
+     * @return mixed
+     */
+    public function getPrimaryKey()
+    {
+        return $this->primaryKey;
+    }
+
     public function __construct(Adapter $adapter)
     {
         $this->adapter = $adapter;
+        $this->_construct();
+    }
+
+    protected function _construct()
+    {
+
     }
 
     public function _init($tableName, $primaryKey)
@@ -22,7 +36,6 @@ class TableGateway extends AbstractTableGateway
         $this->primaryKey = $primaryKey;
         $this->initialize();
     }
-
 
     public function load($where = array(), $columns = array(), $order = array())
     {
@@ -56,6 +69,6 @@ class TableGateway extends AbstractTableGateway
     public function loadById($id)
     {
         //load by primaryKey
-        return $this->load([$this->primaryKey => $id]);
+        return $this->load([$this->getPrimaryKey() => $id]);
     }
 }
