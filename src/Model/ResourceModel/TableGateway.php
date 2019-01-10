@@ -5,18 +5,21 @@ namespace ModelGenerator\Model\ResourceModel;
 use Zend\Db\Sql\Sql;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\ResultSet\ResultSet;
 
 class TableGateway extends AbstractTableGateway
 {
 
-    public $table;
+    protected $primaryKey;
 
-    public function __construct($table, Adapter $adapter)
+    public function __construct(Adapter $adapter)
     {
-        $this->table = $table;
         $this->adapter = $adapter;
-        $this->resultSetPrototype = new ResultSet();
+    }
+
+    public function _init($tableName, $primaryKey)
+    {
+        $this->table = $tableName;
+        $this->primaryKey = $primaryKey;
         $this->initialize();
     }
 
@@ -26,7 +29,7 @@ class TableGateway extends AbstractTableGateway
         try {
             $sql = new Sql($this->getAdapter());
             $select = $sql->select()->from(array(
-                'main_table' => $this->table
+                'main_table' => $this->getTable()
             ));
 
             if (count($where) > 0) {
@@ -48,5 +51,11 @@ class TableGateway extends AbstractTableGateway
         } catch (\Exception $e) {
             throw new \Exception($e->getPrevious()->getMessage());
         }
+    }
+
+    public function loadById($id)
+    {
+        //load by primaryKey
+        return $this->load([$this->primaryKey => $id]);
     }
 }
