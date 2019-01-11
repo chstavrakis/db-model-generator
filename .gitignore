@@ -6,6 +6,7 @@ vendor/
 
 # Local configs
 config/autoload/*.local.php
+config/*.local.php
 
 # Binary gettext files
 *.mo
@@ -25,8 +26,9 @@ data/DoctrineORMModule/cache/
 demos/
 extras/documentation
 
-/config/database.local.php
+# Bin
+bin/*.local.php
+
 .idea/
-/composer.lock
-/src/Model/*.php
-/bin/create-models-local.php
+src/Model/*.php
+
