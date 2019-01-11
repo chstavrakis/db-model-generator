@@ -2,7 +2,7 @@
 
 namespace ModelGenerator\Model\ResourceModel;
 
-use Zend\Db\Sql\Sql;
+
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
 
@@ -66,10 +66,8 @@ class TableGateway extends AbstractTableGateway
     public function load($where = array(), $columns = array(), $order = array())
     {
         try {
-            $sql = new Sql($this->getAdapter());
-            $select = $sql->select()->from(array(
-                'main_table' => $this->getTable()
-            ));
+            $sql = $this->getSql();
+            $select = $sql->select();
 
             if (count($where) > 0) {
                 $select->where($where);
@@ -83,12 +81,10 @@ class TableGateway extends AbstractTableGateway
                 $select->order($order);
             }
 
-            $statement = $sql->prepareStatementForSqlObject($select);
-
-            return $this->resultSetPrototype->initialize($statement->execute());
+            return $this->executeSelect($select);
 
         } catch (\Exception $e) {
-            throw new \Exception($e->getPrevious()->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
