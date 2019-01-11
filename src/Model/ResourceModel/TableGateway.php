@@ -15,26 +15,33 @@ class TableGateway extends AbstractTableGateway
 {
 
     /**
-     * @var
+     * @var string
      */
     protected $primaryKey;
 
     /**
      * TableGateway constructor.
      *
-     * @param Adapter $adapter
      */
-    public function __construct(Adapter $adapter)
+    public function __construct()
     {
-        $this->adapter = $adapter;
+        /**
+         * Please override this one instead of overriding real __construct constructor
+         */
         $this->_construct();
     }
 
     /**
      * Protected constructor
      */
-    protected function _construct()
+    protected function _construct(){}
+
+    /**
+     * @param Adapter $adapter
+     */
+    protected function setAdapter(Adapter $adapter)
     {
+        $this->adapter = $adapter;
     }
 
     /**
