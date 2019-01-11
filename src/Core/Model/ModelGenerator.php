@@ -1,11 +1,9 @@
 <?php
 
-namespace ModelGenerator\Common\Schema\Model;
+namespace ModelGenerator\Core\Model;
 
 
 use ModelGenerator\Core\Exceptions\GeneratorException;
-use ModelGenerator\Core\Model\InformationSchema;
-use ModelGenerator\Core\Schema\Model\AbstractModelClass;
 
 /**
  * Class ModelGenerator

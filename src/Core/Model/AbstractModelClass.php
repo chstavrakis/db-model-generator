@@ -1,6 +1,6 @@
 <?php
 
-namespace ModelGenerator\Core\Schema\Model;
+namespace ModelGenerator\Core\Model;
 
 use ModelGenerator\Common\Helper\Config;
 

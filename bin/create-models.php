@@ -17,7 +17,7 @@ $config = $generator->getConfig()['db'];
 $infoSchema = new \ModelGenerator\Core\Model\InformationSchema( $config );
 $infoSchema->load(['table_schema' => $config['database']]);
 
-$generator = new \ModelGenerator\Common\Schema\Model\ModelGenerator($infoSchema);
+$generator = new \ModelGenerator\Core\Model\ModelGenerator($infoSchema);
 $generator->init()->create();
 
 echo 'Create Models Process - End'. PHP_EOL;
