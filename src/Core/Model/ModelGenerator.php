@@ -42,12 +42,13 @@ class ModelGenerator
     public function init()
     {
         $this->getSchemaResult();
+
         return $this;
     }
 
 
     /**
-     * @throws GeneratorException
+     * @return $this
      */
     public function create()
     {
@@ -59,13 +60,16 @@ class ModelGenerator
 
             foreach ($this->getSchemaResult() as $tableName => $tableColumns) {
                 echo "Create Models Process - Table: $tableName" . PHP_EOL;
-                $this->abstractModelClass->initClass($tableName, $tableColumns);
-                $this->abstractModelClass->createClassFile();
+                $this->abstractModelClass
+                    ->initClass($tableName, $tableColumns)
+                    ->saveClassFile();
             }
 
         } catch (GeneratorException $e) {
-            throw new GeneratorException($e->getMessage());
+            echo "ERROR:: " . $e->getMessage();
         }
+
+        return $this;
     }
 
     /**

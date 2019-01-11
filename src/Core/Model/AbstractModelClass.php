@@ -45,9 +45,12 @@ class AbstractModelClass
         $this->clearModelDirectory();
     }
 
+
     /**
      * @param $tableName
      * @param $tableColumns
+     *
+     * @return $this
      */
     public function initClass($tableName, $tableColumns)
     {
@@ -56,15 +59,19 @@ class AbstractModelClass
         $this->tableColumns = $tableColumns['columns'];
         $this->tablePrimaryKey = $this->getPrimaryKey();
         $this->tableNameCamelize = $this->camelize($this->tableName);
+
+        return $this;
     }
 
-    /**
-     *
-     */
-    public function createClassFile()
+
+
+    public function saveClassFile()
     {
         $this->writeModelFile();
+
+        return $this;
     }
+
 
     /**
      *

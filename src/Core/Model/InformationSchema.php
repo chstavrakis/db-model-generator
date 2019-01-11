@@ -38,11 +38,11 @@ class InformationSchema extends AbstractTableGateway
         $this->initialize();
     }
 
+
     /**
      * @param array $where
      *
      * @return $this
-     * @throws \Exception
      */
     public function load($where = array())
     {
@@ -75,7 +75,7 @@ class InformationSchema extends AbstractTableGateway
 
             return $this;
         } catch (\Exception $e) {
-            throw new \Exception($e->getPrevious()->getMessage());
+            echo "ERROR:: " . $e->getMessage();
         }
     }
 
