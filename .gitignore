@@ -2,7 +2,7 @@
 ### ZendFramework template
 # Composer files
 composer.phar
-vendor/
+vendor/*
 
 # Local configs
 config/autoload/*.local.php
