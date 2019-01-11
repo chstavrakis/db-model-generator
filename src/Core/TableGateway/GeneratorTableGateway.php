@@ -1,6 +1,6 @@
 <?php
 
-namespace ModelGenerator\Model\ResourceModel;
+namespace ModelGenerator\Core\TableGateway;
 
 use ModelGenerator\Core\Generator;
 use Zend\Db\Adapter\AdapterInterface;
@@ -11,7 +11,7 @@ use Zend\Db\TableGateway\TableGateway;
  *
  * @package ModelGenerator\Model\ResourceModel
  */
-class GeneratorTableGateway extends TableGateway
+class GeneratorTableGateway extends TableGateway implements GeneratorTableGatewayInterface
 {
 
     /**
@@ -68,6 +68,11 @@ class GeneratorTableGateway extends TableGateway
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
+    }
+
+    public function save()
+    {
+
     }
 
     /**

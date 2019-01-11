@@ -1,6 +1,6 @@
 <?php
 
-namespace ModelGenerator\Common\Schema\Model;
+namespace ModelGenerator\Core\Model;
 
 use Zend\Db\Sql\Sql;
 use Zend\Db\TableGateway\AbstractTableGateway;
@@ -8,11 +8,11 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 
 /**
- * Class Information
+ * Class InformationSchema
  *
  * @package ModelGenerator\Common\Schema\Model
  */
-class Information extends AbstractTableGateway
+class InformationSchema extends AbstractTableGateway
 {
 
     /**
@@ -26,7 +26,7 @@ class Information extends AbstractTableGateway
     protected $infoResults;
 
     /**
-     * Information constructor.
+     * InformationSchema constructor.
      *
      * @param $dbParams
      */

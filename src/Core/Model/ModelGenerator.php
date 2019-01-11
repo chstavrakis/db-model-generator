@@ -3,35 +3,39 @@
 namespace ModelGenerator\Common\Schema\Model;
 
 
+use ModelGenerator\Core\Exceptions\GeneratorException;
+use ModelGenerator\Core\Model\InformationSchema;
+use ModelGenerator\Core\Schema\Model\AbstractModelClass;
+
 /**
- * Class Generator
+ * Class ModelGenerator
  *
  * @package ModelGenerator\Common\Schema\Model
  */
-class Generator
+class ModelGenerator
 {
     /**
-     * @var AbstractClass
+     * @var AbstractModelClass
      */
-    private $abstractClass;
+    private $abstractModelClass;
     /**
-     * @var mixed
+     * @var InformationSchema
      */
-    private $infoResult;
+    private $information;
     /**
      * @var
      */
     private $schemaResult;
 
     /**
-     * Generator constructor.
+     * ModelGenerator constructor.
      *
-     * @param Information $information
+     * @param InformationSchema $information
      */
-    public function __construct(Information $information)
+    public function __construct(InformationSchema $information)
     {
-        $this->abstractClass = new AbstractClass();
-        $this->infoResult = $information->getInfoResults();
+        $this->abstractModelClass = new AbstractModelClass();
+        $this->information = $information;
     }
 
     /**
@@ -43,25 +47,26 @@ class Generator
         return $this;
     }
 
+
     /**
-     * @throws \Exception
+     * @throws GeneratorException
      */
     public function create()
     {
         try {
 
             if (empty($this->getSchemaResult())) {
-                throw new \Exception('Schema is Empty.');
+                throw new GeneratorException('Schema is Empty.');
             }
 
             foreach ($this->getSchemaResult() as $tableName => $tableColumns) {
                 echo "Create Models Process - Table: $tableName" . PHP_EOL;
-                $this->abstractClass->initClass($tableName, $tableColumns);
-                $this->abstractClass->createClassFile();
+                $this->abstractModelClass->initClass($tableName, $tableColumns);
+                $this->abstractModelClass->createClassFile();
             }
 
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+        } catch (GeneratorException $e) {
+            throw new GeneratorException($e->getMessage());
         }
     }
 
@@ -71,7 +76,8 @@ class Generator
     protected function getSchemaResult()
     {
         if (!$this->schemaResult) {
-            foreach ($this->infoResult as $item) {
+            $infoResults = $this->information->getInfoResults();
+            foreach ($infoResults as $item) {
                 $this->schemaResult[$item['table_name']]['columns'][] = [
                     'name' => $item['column_name'],
                     'data_type' => $item['data_type'],

@@ -28,7 +28,7 @@ class Generator
     private $config = array();
 
     /**
-     * Generator constructor.
+     * ModelGenerator constructor.
      *
      * @param null $config
      *

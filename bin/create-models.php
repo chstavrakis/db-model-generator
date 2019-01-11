@@ -14,10 +14,10 @@ ModelGenerator\Common\Helper\Config::setVendorDir($vendorDir);
 $generator = new \ModelGenerator\Core\Generator();
 $config = $generator->getConfig()['db'];
 
-$infoSchema = new \ModelGenerator\Common\Schema\Model\Information( $config );
+$infoSchema = new \ModelGenerator\Core\Model\InformationSchema( $config );
 $infoSchema->load(['table_schema' => $config['database']]);
 
-$generator = new \ModelGenerator\Common\Schema\Model\Generator($infoSchema);
+$generator = new \ModelGenerator\Common\Schema\Model\ModelGenerator($infoSchema);
 $generator->init()->create();
 
 echo 'Create Models Process - End'. PHP_EOL;

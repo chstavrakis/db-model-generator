@@ -1,15 +1,15 @@
 <?php
 
-namespace ModelGenerator\Common\Schema\Model;
+namespace ModelGenerator\Core\Schema\Model;
 
 use ModelGenerator\Common\Helper\Config;
 
 /**
- * Class AbstractClass
+ * Class AbstractModelClass
  *
  * @package ModelGenerator\Common\Schema\Model
  */
-class AbstractClass
+class AbstractModelClass
 {
     /**
      *
@@ -38,7 +38,7 @@ class AbstractClass
     protected $tableNameCamelize;
 
     /**
-     * AbstractClass constructor.
+     * AbstractModelClass constructor.
      */
     public function __construct()
     {
@@ -142,7 +142,7 @@ class AbstractClass
         return sprintf('<?php
 namespace ModelGenerator\Model;
 
-use ModelGenerator\Model\ResourceModel\GeneratorTableGateway;
+use ModelGenerator\Core\TableGateway\GeneratorTableGateway;
 
 class %s extends GeneratorTableGateway
 {
