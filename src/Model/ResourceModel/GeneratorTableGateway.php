@@ -2,16 +2,16 @@
 
 namespace ModelGenerator\Model\ResourceModel;
 
-
-use Zend\Db\TableGateway\AbstractTableGateway;
-use Zend\Db\Adapter\Adapter;
+use ModelGenerator\Core\Generator;
+use Zend\Db\Adapter\AdapterInterface;
+use Zend\Db\TableGateway\TableGateway;
 
 /**
- * Class TableGateway
+ * Class GeneratorTableGateway
  *
  * @package ModelGenerator\Model\ResourceModel
  */
-class TableGateway extends AbstractTableGateway
+class GeneratorTableGateway extends TableGateway
 {
 
     /**
@@ -20,39 +20,21 @@ class TableGateway extends AbstractTableGateway
     protected $primaryKey;
 
     /**
-     * TableGateway constructor.
+     * GeneratorTableGateway constructor.
      *
-     */
-    public function __construct()
-    {
-        /**
-         * Please override this one instead of overriding real __construct constructor
-         */
-        $this->_construct();
-    }
-
-    /**
-     * Protected constructor
-     */
-    protected function _construct(){}
-
-    /**
-     * @param Adapter $adapter
-     */
-    protected function setAdapter(Adapter $adapter)
-    {
-        $this->adapter = $adapter;
-    }
-
-    /**
      * @param $tableName
      * @param $primaryKey
+     * @param AdapterInterface $adapter
      */
-    public function _init($tableName, $primaryKey)
+    public function __construct($tableName, $primaryKey, $adapter = null)
     {
-        $this->table = $tableName;
         $this->primaryKey = $primaryKey;
-        $this->initialize();
+
+        if(is_null($adapter)){
+            $adapter = Generator::app()->getAdapter();
+        }
+
+        parent::__construct($tableName, $adapter);
     }
 
     /**

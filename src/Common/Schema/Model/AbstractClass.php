@@ -142,17 +142,14 @@ class AbstractClass
         return sprintf('<?php
 namespace ModelGenerator\Model;
 
-use ModelGenerator\Core\Generator;
-use ModelGenerator\Model\ResourceModel\TableGateway;
+use ModelGenerator\Model\ResourceModel\GeneratorTableGateway;
 
-class %s extends TableGateway
+class %s extends GeneratorTableGateway
 {
     
-    protected function _construct()
+    public function __construct()
     {
-        $this->setAdapter(Generator::app()->getAdapter());
-        
-        parent::_init(\'%s\',\'%s\');
+        parent::__construct(\'%s\',\'%s\');
     }
     
 }',         $this->tableNameCamelize,
