@@ -10,6 +10,9 @@
         "php": "^5.6 || ^7.0",
         "zendframework/zend-db": "^2.9"
     },
+    "bin": [
+        "bin/create-models"
+    ],
     "autoload": {
         "psr-4": {
             "ModelGenerator\\": "src/"

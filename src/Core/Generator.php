@@ -40,6 +40,10 @@ class Generator
         }
 
         $defaults = include(__DIR__ . '/../../config/database.local.php');
+        if(is_null($defaults) || empty($defaults)){
+            // ZF2 local.php config
+            $defaults = include(__DIR__ . '/../../../../../config/autoload/local.php');
+        }
         if ($defaults) {
             $this->addConfig($defaults);
         }

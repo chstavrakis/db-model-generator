@@ -79,6 +79,9 @@ class AbstractModelClass
     protected function writeModelFile()
     {
         $modelDir = Config::getModelDir();
+        if (!file_exists($modelDir)) {
+            mkdir($modelDir, 0777, true);
+        }
         $ourFileName = $modelDir . sprintf("/%s.php", $this->tableNameCamelize);
         $ourFileHandle = fopen($ourFileName, 'w') or die("can't open file");
         fwrite($ourFileHandle, $this->getClassTemplate());

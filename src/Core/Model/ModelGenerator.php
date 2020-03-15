@@ -79,7 +79,7 @@ class ModelGenerator
     {
         if (!$this->schemaResult) {
             $infoResults = $this->information->getInfoResults();
-            foreach ($infoResults as $item) {
+            foreach ($infoResults ?? [] as $item) {
                 $this->schemaResult[$item['table_name']]['columns'][] = [
                     'name' => $item['column_name'],
                     'data_type' => $item['data_type'],
