@@ -1,5 +1,5 @@
+#!/usr/bin/env php
 <?php
-
 echo 'Create Models Process - Start'. PHP_EOL;
 
 $moduleDir = dirname(__DIR__);
