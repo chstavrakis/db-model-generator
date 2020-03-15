@@ -35,9 +35,6 @@ class Generator
      */
     public function __construct($config = null)
     {
-        if (!is_null(self::$__instance)) {
-            return self::$__instance;
-        }
 
         $defaults = include(__DIR__ . '/../../config/database.local.php');
         if(is_null($defaults) || empty($defaults)){
@@ -68,6 +65,9 @@ class Generator
      */
     public static function app()
     {
+        if (is_null(self::$__instance)) {
+            self::$__instance = new Generator();
+        }
         return self::$__instance;
     }
 
