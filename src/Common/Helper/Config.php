@@ -14,12 +14,25 @@ class Config
      */
     public static $vendorDir = '';
 
+    public static function getSrcDir()
+    {
+        return self::getModuleDir() . '/src';
+    }
+
     /**
      * @return string
      */
     public static function getModelDir()
     {
-        return self::getModuleDir() . '/src/Model';
+        return self::getSrcDir() . '/Model';
+    }
+
+    /**
+     * @return string
+     */
+    public static function getControllerDir()
+    {
+        return self::getSrcDir() . '/Controller';
     }
 
     /**

@@ -32,4 +32,5 @@ bin/*.local.php
 
 .idea/
 src/Model/*.php
+src/Controller/*.php
 
