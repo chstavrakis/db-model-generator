@@ -221,7 +221,7 @@ class AbstractControllerClass
      *              @SWG\Property(property=\"purge\", type=\"integer\"),
      *              @SWG\Property(property=\"status\", type=\"integer\"),
      *              @SWG\Property(property=\"fired_status\", type=\"integer\"),
-     *              @SWG\Property(property=\"name\", type\=\"string\"),
+     *              @SWG\Property(property=\"name\", type=\"string\"),
      *              @SWG\Property(property=\"node_id\", type=\"integer\"),
      *              @SWG\Property(property=\"node_child_id\", type=\"integer\"),
      *              @SWG\Property(property=\"hysteresis_time\", type=\"integer\"),
