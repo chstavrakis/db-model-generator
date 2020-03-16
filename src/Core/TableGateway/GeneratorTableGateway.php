@@ -76,6 +76,24 @@ class GeneratorTableGateway extends TableGateway implements GeneratorTableGatewa
     }
 
     /**
+     * Update by Id
+     *
+     * @param array $id
+     * @param array $setData
+     * @param array|null $joins
+     * @return int
+     * @throws \Exception
+     */
+    public function updateById($id, $setData = [], array $joins = null)
+    {
+        try {
+            return parent::update($setData, [$this->getPrimaryKey() => $id], $joins);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
      * @param $id
      *
      * @return mixed
