@@ -26,4 +26,8 @@ $generator->init()->create();
 $generator = new \ModelGenerator\Core\Model\ControllerFactoryGenerator($infoSchema, 'Api\Factory\V1' , 'Api\Controller\V1');
 $generator->init()->create();
 
+$generator = new \ModelGenerator\Core\Model\ModuleConfigGenerator($infoSchema);
+$generator->init()->create();
+
+
 echo 'Create Models Process - End'. PHP_EOL;

@@ -46,6 +46,14 @@ class Config
     /**
      * @return string
      */
+    public static function getModuleConfigDir()
+    {
+        return self::getSrcDir() . '/ModuleConfig';
+    }
+
+    /**
+     * @return string
+     */
     public static function getConfigDir()
     {
         return self::getModuleDir() . '/config';

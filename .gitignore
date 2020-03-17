@@ -34,4 +34,5 @@ bin/*.local.php
 src/Model/*.php
 src/Controller/*.php
 src/Factory/*.php
+src/ModuleConfig/*.php
 
