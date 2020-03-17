@@ -38,6 +38,14 @@ class Config
     /**
      * @return string
      */
+    public static function getControllerFactoryDir()
+    {
+        return self::getSrcDir() . '/Factory';
+    }
+
+    /**
+     * @return string
+     */
     public static function getConfigDir()
     {
         return self::getModuleDir() . '/config';
