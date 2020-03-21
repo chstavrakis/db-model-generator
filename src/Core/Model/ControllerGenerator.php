@@ -32,7 +32,7 @@ class ControllerGenerator
      * @param string $namespace
      * @param bool $isRestController
      */
-    public function __construct(InformationSchema $information, $namespace = 'Application\Controller', $isRestController = false)
+    public function __construct(InformationSchema $information, $namespace = 'ModelGenerator\Controller', $isRestController = false)
     {
         $this->abstractControllerClass = new AbstractControllerClass($namespace, $isRestController);
         $this->information = $information;
@@ -63,7 +63,7 @@ class ControllerGenerator
             foreach ($this->getSchemaResult() as $tableName => $tableColumns) {
                 echo "Create Controllers Process - Table: $tableName" . PHP_EOL;
                 $this->abstractControllerClass
-                    ->initClass($tableName)
+                    ->initClass($tableName, $tableColumns)
                     ->saveClassFile();
             }
 

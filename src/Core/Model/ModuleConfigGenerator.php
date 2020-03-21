@@ -23,15 +23,27 @@ class ModuleConfigGenerator
      * @var
      */
     private $schemaResult;
+    /**
+     * @var string
+     */
+    private $factoryNamespace;
+    /**
+     * @var string
+     */
+    private $controllerNamespace;
 
     /**
      * ModelGenerator constructor.
      *
      * @param InformationSchema $information
+     * @param string $factoryNamespace
+     * @param string $controllerNamespace
      */
-    public function __construct(InformationSchema $information)
+    public function __construct(InformationSchema $information, $factoryNamespace = 'ModelGenerator\Factory', $controllerNamespace= 'Controller\V1')
     {
         $this->information = $information;
+        $this->factoryNamespace = $factoryNamespace;
+        $this->controllerNamespace = $controllerNamespace;
     }
 
     /**
@@ -130,6 +142,7 @@ return [
                     ";
 
         foreach ($this->getSchemaResult() as $tableName => $tableColumns) {
+            $activeFilter = Config::tableHasActiveColumn($tableColumns);
             $camelizeName = $this->camelize($tableName);
             $apiUrlName = $this->urlize($tableName);
             $retStartVal .= "'v1-$apiUrlName' => [
@@ -137,19 +150,21 @@ return [
                         'options' => [
                             'route'    => '/v1/".$apiUrlName."[/:id]',
                             'defaults' => [
-                                'controller' => Controller\V1\\".$camelizeName."Controller::class,
+                                'controller' => ".$this->controllerNamespace."\\".$camelizeName."Controller::class,
                             ],
                             'constraints' => array(
                                 'id'     => '[0-9]+',
                             )
                         ]
                     ],
-                    'v1-$apiUrlName-active' => [
+                    ";
+            if($activeFilter) {
+                $retStartVal .= "'v1-$apiUrlName-active' => [
                         'type'    => Segment::class,
                         'options' => [
                             'route'    => '/v1/$apiUrlName/active',
                             'defaults' => [
-                                'controller' => Controller\V1\\" . $camelizeName . "Controller::class,
+                                'controller' => " . $this->controllerNamespace . "\\" . $camelizeName . "Controller::class,
                                 'action' => 'active'
                             ],
                             'constraints' => array(
@@ -158,6 +173,7 @@ return [
                         ]
                     ],
                     ";
+            }
         }
 
 
@@ -170,8 +186,7 @@ return [
             ";
         foreach ($this->getSchemaResult() as $tableName => $tableColumns) {
             $camelizeName = $this->camelize($tableName);
-            $apiUrlName = $this->urlize($tableName);
-            $retEndVal .= "Controller\V1\\".$camelizeName."Controller::class => 'Api\Factory\V1\\".$camelizeName."ControllerFactory',
+            $retEndVal .= $this->controllerNamespace."\\".$camelizeName."Controller::class => '".$this->factoryNamespace."\\".$camelizeName."ControllerFactory',
             ";
         }
 

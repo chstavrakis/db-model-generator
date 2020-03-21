@@ -90,4 +90,16 @@ class Config
     {
         self::$moduleDir = $moduleDir;
     }
+
+    public static function tableHasActiveColumn(array $tableColumns = [])
+    {
+        $columns = array_map(function($tc){return array_map(function ($tci){return  $tci['name'];}, $tc);}, $tableColumns);
+        $activeFilter = null;
+        if(in_array('status', $columns['columns'])){
+            $activeFilter = '["status" => "1"]';
+        } elseif (in_array('active', $columns['columns'])){
+            $activeFilter = '["active" => "1"]';
+        }
+        return $activeFilter;
+    }
 }

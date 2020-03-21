@@ -19,13 +19,14 @@ class AbstractControllerClass
      * @var
      */
     protected $controllerNameCamelize;
+    private $tableColumns;
 
     /**
      * AbstractModelClass constructor.
      * @param string $namespace
      * @param bool $isRestController
      */
-    public function __construct($namespace = 'Application\Controller', $isRestController = false)
+    public function __construct($namespace, $isRestController)
     {
         $this->namespace = $namespace;
         $this->isRestController = $isRestController;
@@ -34,9 +35,10 @@ class AbstractControllerClass
 
 
 
-    public function initClass($tableName)
+    public function initClass($tableName, $tableColumns)
     {
         $this->tableName = $tableName;
+        $this->tableColumns = $tableColumns;
         $this->controllerNameCamelize = $this->camelize($tableName);
         return $this;
     }
@@ -85,6 +87,9 @@ class AbstractControllerClass
         $apiUrlName = $this->urlize($this->tableName);
         $controllerName = $this->controllerNameCamelize;
         $lowControllerName = lcfirst($this->controllerNameCamelize);
+        $activeFilter = Config::tableHasActiveColumn($this->tableColumns);
+
+
         $result = '';
         if($this->isRestController()){
             $result = "
@@ -107,9 +112,12 @@ class AbstractControllerClass
      */
     public function getList()
     {
-        return new JsonModel(\$this->getModel()->load(['purge' => '0']));
+        return new JsonModel(\$this->getModel()->load());
     }
+";
+            if($activeFilter) {
 
+                $result .= "
     /**
      * @SWG\Get(
      *     path=\"/api/v1/$apiUrlName/active\",
@@ -129,9 +137,12 @@ class AbstractControllerClass
      */
     public function activeAction()
     {
-        return new JsonModel(\$this->getModel()->load(['purge' => '0', 'status' => '1']));
+        return new JsonModel(\$this->getModel()->load(" . $activeFilter . "));
     }
+";
+            }
 
+            $result .="
     /**
      * @SWG\Get(
      *     path=\"/api/v1/$apiUrlName/{id}\",

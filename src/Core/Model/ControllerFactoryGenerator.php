@@ -32,7 +32,7 @@ class ControllerFactoryGenerator
      * @param string $namespace
      * @param string $controllerNamespace
      */
-    public function __construct(InformationSchema $information, $namespace = 'Application\Factory', $controllerNamespace = 'Application\Factory')
+    public function __construct(InformationSchema $information, $namespace = 'ModelGenerator\Factory', $controllerNamespace = 'ModelGenerator\Factory')
     {
         $this->abstractControllerClass = new AbstractControllerFactoryClass($namespace, $controllerNamespace);
         $this->information = $information;

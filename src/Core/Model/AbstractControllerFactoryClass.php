@@ -25,7 +25,7 @@ class AbstractControllerFactoryClass
      * @param string $namespace
      * @param string $controllerNamespace
      */
-    public function __construct($namespace = 'Application\Factory', $controllerNamespace = 'Application\Factory')
+    public function __construct($namespace, $controllerNamespace)
     {
         $this->namespace = $namespace;
         $this->controllerNamespace = $controllerNamespace;
