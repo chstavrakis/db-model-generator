@@ -26,7 +26,7 @@ $generator->init()->create();
 $generator = new \ModelGenerator\Core\Model\ControllerFactoryGenerator($infoSchema, 'Api\Factory\V1' , 'Api\Controller\V1');
 $generator->init()->create();
 
-$generator = new \ModelGenerator\Core\Model\ModuleConfigGenerator($infoSchema);
+$generator = new \ModelGenerator\Core\Model\ModuleConfigGenerator($infoSchema,'Api\Factory\V1');
 $generator->init()->create();
 
 
