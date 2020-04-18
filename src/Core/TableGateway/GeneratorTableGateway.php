@@ -42,10 +42,11 @@ class GeneratorTableGateway extends TableGateway implements GeneratorTableGatewa
      * @param array $columns
      * @param array $order
      *
+     * @param null $limit
      * @return mixed
      * @throws \Exception
      */
-    public function load($where = array(), $columns = array(), $order = array())
+    public function load($where = array(), $columns = array(), $order = array(), $limit = null)
     {
         try {
             $sql = $this->getSql();
@@ -61,6 +62,10 @@ class GeneratorTableGateway extends TableGateway implements GeneratorTableGatewa
 
             if (count($order) > 0) {
                 $select->order($order);
+            }
+
+            if($limit){
+                $select->limit($limit);
             }
 
             return $this->executeSelect($select);

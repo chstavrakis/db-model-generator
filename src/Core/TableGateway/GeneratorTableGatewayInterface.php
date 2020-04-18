@@ -7,7 +7,7 @@ use Zend\Db\TableGateway\TableGatewayInterface;
 
 interface GeneratorTableGatewayInterface extends TableGatewayInterface
 {
-    public function load($where, $columns, $order);
+    public function load($where, $columns, $order, $limit);
     /**
      * Update statement
      *
