@@ -39,7 +39,9 @@ class Generator
         $defaults = include(__DIR__ . '/../../config/database.local.php');
         if(is_null($defaults) || empty($defaults)){
             // ZF2 local.php config
-            $defaults = include(__DIR__ . '/../../../../../config/autoload/local.php');
+            $globalDefaults = include(__DIR__ . '/../../../../../config/autoload/global.php');
+            $localDefaults = include(__DIR__ . '/../../../../../config/autoload/local.php');
+            $defaults = array_replace_recursive($globalDefaults === false ? []: $globalDefaults, $localDefaults === false ? []: $localDefaults);
         }
         if ($defaults) {
             $this->addConfig($defaults);
